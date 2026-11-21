@@ -1,0 +1,56 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HASAGI: High-throughput Automated Screening And Grading of IVCM Images"
+        Width="630" SizeToContent="Height" ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+  <StackPanel Margin="6">
+    <Grid Height="90" ClipToBounds="True">
+      <Image x:Name="Painting" Stretch="UniformToFill"/>
+      <Image x:Name="Wordmark" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" Height="66" Stretch="Uniform"/>
+    </Grid>
+    <Grid Margin="0,6">
+      <Border x:Name="DropZone" MinHeight="59" Background="Transparent" BorderThickness="1"
+              BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+              AllowDrop="True" Focusable="True" Cursor="Hand">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+          <TextBlock x:Name="PickText" TextAlignment="Center"/>
+          <TextBlock x:Name="DropHint" TextAlignment="Center"/>
+        </StackPanel>
+      </Border>
+      <Grid x:Name="Fields" Visibility="Collapsed" MinHeight="59">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions><RowDefinition/><RowDefinition Height="4"/><RowDefinition/></Grid.RowDefinitions>
+        <Label x:Name="InputLabel" Target="{Binding ElementName=InputPath}" VerticalAlignment="Center"/>
+        <TextBox x:Name="InputPath" Grid.Column="1" IsReadOnly="True" Margin="0,0,6,0" VerticalContentAlignment="Center"/>
+        <Button x:Name="Browse" Grid.Column="2" MinWidth="80" Padding="5,1"/>
+        <Label x:Name="OutputLabel" Grid.Row="2" Target="{Binding ElementName=OutputPath}" VerticalAlignment="Center"/>
+        <DockPanel Grid.Row="2" Grid.Column="1" Margin="0,0,6,0">
+          <Button x:Name="ChooseOutput" DockPanel.Dock="Right" Content="…" Width="26" Margin="3,0,0,0"/>
+          <TextBox x:Name="OutputPath" IsReadOnly="True" VerticalContentAlignment="Center"/>
+        </DockPanel>
+        <Button x:Name="Analyze" Grid.Row="2" Grid.Column="2" MinWidth="80" Padding="5,1"/>
+      </Grid>
+    </Grid>
+    <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Expander x:Name="Toggle" Background="Black" Foreground="Lime" HorizontalContentAlignment="Stretch">
+        <Expander.Header><TextBlock x:Name="Latest" Margin="3,2" Foreground="Lime" TextTrimming="CharacterEllipsis"/></Expander.Header>
+      </Expander>
+      <DockPanel Grid.Column="1" Margin="6,0,0,0" ToolTip="Language / 语言 / 語言">
+        <Border x:Name="LanguageGlobe" Width="27" Background="Transparent" Cursor="Hand">
+          <Grid Width="17" Height="17">
+            <Ellipse Margin="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Ellipse Margin="5,1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Path Data="M1.5,8.5 H15.5" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+          </Grid>
+        </Border>
+        <ComboBox x:Name="Language" MinWidth="82" VerticalContentAlignment="Center" ToolTip="Language / 语言 / 語言"/>
+      </DockPanel>
+      <TextBox x:Name="History" Grid.Row="1" Grid.ColumnSpan="2" Visibility="Collapsed" Height="100"
+               IsReadOnly="True" Background="Black" Foreground="Lime" FontFamily="Consolas, Microsoft YaHei UI"
+               TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+  </StackPanel>
+</Window>

@@ -1,0 +1,53 @@
+HASAGI Noncommercial License
+
+Scope
+
+This license covers the HASAGI PyTorch model definitions, native inference
+and export code, the layers.pt and discernibility.pt checkpoints, the
+Python inference package and its two ONNX models (layers_fp32.onnx and
+discernibility_fp32.onnx), and the HASAGI Windows GUI, TUI and CLI
+source, shared inference and reporting code. It also covers accompanying
+HASAGI documentation, tests and build scripts. Together these are the
+"Materials." Third-party materials retain their respective terms.
+
+Noncommercial research and teaching
+
+The HASAGI rights holders permit you to download, install, run, study,
+and adapt the Materials, free of charge, solely for noncommercial
+research or teaching. You may make working copies and fine-tune the
+models for those purposes. You may publish research findings and share
+a link to an authorized HASAGI download. Supplying copies of the
+Materials alongside those findings requires the permission described
+below.
+
+Commercial use and redistribution
+
+Obtain prior written authorization from the applicable HASAGI rights
+holders or their authorized representative before either of the following:
+
+  1. Using the Materials for a commercial purpose, including incorporating
+     them into a commercial product or operating a paid inference service.
+  2. Redistributing any of the Materials to another person or organization,
+     in original or modified form, for any purpose, with or without a fee.
+     This includes sending a model to a collaborator, mirroring a package,
+     or distributing fine-tuned weights. The same rule applies to research
+     and classroom distribution.
+
+With any authorized redistribution, retain this license, the accompanying
+THIRD_PARTY_NOTICES, and applicable attribution notices. Identify any
+changes you have made.
+
+Third-party rights
+
+Each HASAGI rights holder grants permission only for rights they control.
+Third-party material remains subject to its own terms. In particular,
+the upstream Apache License, Version 2.0, and its notices are reproduced
+in THIRD_PARTY_NOTICES. Rights granted directly under those terms remain
+available to recipients.
+
+Warranty and liability
+
+The Materials are supplied as is. To the extent permitted by applicable
+law, the rights holders disclaim warranties, including merchantability,
+fitness for a particular purpose, and noninfringement, and disclaim
+liability for damages arising from use of the Materials.
