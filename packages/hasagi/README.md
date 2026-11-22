@@ -4,13 +4,11 @@ HASAGI identifies tissue layers and grades nerve discernibility in single-frame 
 
 ## License
 
-The HASAGI Noncommercial License permits use and adaptation of the Python
-code and both ONNX models for noncommercial research or teaching. Commercial
-use and any redistribution, including sharing copies for free with collaborators
-or students, require prior written authorization from the applicable HASAGI
-rights holders or their authorized representative. You may share a link to an
-authorized download. See `LICENSE` for the full terms and `THIRD_PARTY_NOTICES`
-for upstream licenses and attribution.
+The HASAGI rights holders license the Python code and both ONNX models in
+this checkout under the [GNU Affero General Public License, version 3 only](LICENSE)
+(`AGPL-3.0-only`). See [third-party notices](THIRD_PARTY_NOTICES) for upstream
+licenses and attribution. The previously published PyPI `0.1.0b1` distributions
+carry the HASAGI Noncommercial License.
 
 ## Installation
 

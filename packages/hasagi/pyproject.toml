@@ -7,7 +7,7 @@ name = "hasagi"
 version = "0.1.0b1"
 description = "CPU inference for corneal IVCM tissue layers and nerve discernibility"
 readme = "README.md"
-license = "LicenseRef-HASAGI-Noncommercial AND Apache-2.0"
+license = "AGPL-3.0-only AND Apache-2.0"
 license-files = ["LICENSE", "THIRD_PARTY_NOTICES"]
 requires-python = ">=3.10"
 dependencies = ["numpy", "onnxruntime", "Pillow>=9.1"]

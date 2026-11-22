@@ -40,8 +40,12 @@ All three interfaces export CSV and Excel files with one row per image. Each row
 
 ## License
 
-The [HASAGI Noncommercial License](LICENSE) covers the project code and models,
-including the native checkpoints, ONNX exports, Python package and Windows
-applications. Noncommercial research and teaching are permitted. Commercial
-use and any redistribution require prior written authorization. See the
-[third-party notices](THIRD_PARTY_NOTICES) for upstream licenses and attribution.
+The HASAGI rights holders license the project code, documentation, tests,
+build scripts and models in this checkout under the
+[GNU Affero General Public License, version 3 only](LICENSE)
+(`AGPL-3.0-only`). This includes the PyTorch checkpoints, both ONNX models,
+the Python package and the Windows applications. Third-party materials are
+subject to the licenses listed in the [third-party notices](THIRD_PARTY_NOTICES).
+
+The previously published PyPI `0.1.0b1` distributions and Windows
+`v0.1.0-beta.1` downloads carry the HASAGI Noncommercial License.
