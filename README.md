@@ -32,9 +32,9 @@ Choose one package, extract the ZIP, and run the executable listed below. Each p
 
 | Windows x64 download | Executable | Use it to |
 | --- | --- | --- |
-| [Download GUI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.1/HASAGI-gui-v0.1.0-beta.1-Windows-x64.zip) | `HASAGI.exe` | Select a folder or drag it into the window. |
-| [Download TUI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.1/HASAGI-tui-v0.1.0-beta.1-Windows-x64.zip) | `HASAGI-tui.exe` | Browse folders and follow progress using the keyboard. |
-| [Download CLI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.1/HASAGI-cli-v0.1.0-beta.1-Windows-x64.zip) | `HASAGI-cli.exe` | Run batch analyses from a script. |
+| [Download GUI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.2/HASAGI-gui-v0.1.0-beta.2-Windows-x64.zip) | `HASAGI.exe` | Select a folder or drag it into the window. |
+| [Download TUI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.2/HASAGI-tui-v0.1.0-beta.2-Windows-x64.zip) | `HASAGI-tui.exe` | Browse folders and follow progress using the keyboard. |
+| [Download CLI (ZIP)](https://github.com/SummerColdWind/HASAGI/releases/download/v0.1.0-beta.2/HASAGI-cli-v0.1.0-beta.2-Windows-x64.zip) | `HASAGI-cli.exe` | Run batch analyses from a script. |
 
 All three interfaces export CSV and Excel files with one row per image. Each row includes the absolute and relative file paths, predictions, model probabilities, and processing status.
 
