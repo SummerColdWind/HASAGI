@@ -54,7 +54,7 @@ internal sealed class BatchJob
         }
     }
 
-    internal int Run(string input, string output, CancellationToken token, string reportName = "HASAGI_results")
+    internal int Run(string input, string output, CancellationToken token, int language, string reportName = "HASAGI_results")
     {
         var files = FindImages(input, token).OrderBy(p => p, StringComparer.OrdinalIgnoreCase).ToArray();
         token.ThrowIfCancellationRequested();
@@ -67,7 +67,7 @@ internal sealed class BatchJob
         using (var layers = new CpuModel("layers_fp32.onnx"))
         using (var grades = new CpuModel("discernibility_fp32.onnx")) {
             token.ThrowIfCancellationRequested();
-            Saved = Report.SavePair(stem, Rows(files, prefix, layers, grades, token), () => Processed < Total);
+            Saved = Report.SavePair(stem, Rows(files, prefix, layers, grades, token), () => Processed < Total, language);
         }
         if (Partial) return 130;
         return Errors == 0 ? 0 : 3;

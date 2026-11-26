@@ -5,6 +5,10 @@ JPEG and TIFF images on a Windows x64 CPU. Each writes a CSV and an Excel
 workbook with one row per image. The three interfaces share the image reader,
 ONNX inference bridge and report writer in [shared](shared/).
 
+## Windows v0.1.0-beta.2
+
+On first use, Windows display language selects Simplified Chinese, Traditional Chinese or English. Other languages use English. The GUI language menu, TUI F4 menu and CLI option `--lang zh-CN|zh-TW|en` remember the choice for all three applications under the current Windows account. Each batch uses the language selected when analysis starts for its Excel workbook. CSV uses stable field names and status codes. CLI help and progress messages are in English.
+
 ## Build and run
 
 Use x64 Windows with PowerShell, the .NET Framework 4.x compiler and WPF

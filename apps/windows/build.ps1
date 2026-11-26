@@ -23,13 +23,14 @@ $common = @('/nologo','/platform:x64','/codepage:65001','/optimize+',
     '/reference:System.Xaml.dll','/reference:System.Xml.Linq.dll',
     '/reference:System.IO.Compression.dll','/reference:System.IO.Compression.FileSystem.dll',
     "/resource:$shared\ReportTemplate.xlsx,report.xlsx")
+
 $gui = Join-Path $PSScriptRoot 'gui'
 $tui = Join-Path $PSScriptRoot 'tui'
-& "$fx\csc.exe" @common /target:winexe "/out:$bin\HASAGI.exe" "/reference:$fx\WPF\PresentationFramework.dll" /reference:System.Windows.Forms.dll "/resource:$gui\MainWindow.xaml,window.xaml" "/resource:$gui\assets\hasagi-yasuo-ink.png,ink.png" "/resource:$gui\assets\hasagi-brush-wordmark.png,wordmark.png" "$shared\Analysis.cs" "$shared\Report.cs" "$gui\Hasagi.cs"
+& "$fx\csc.exe" @common /target:winexe "/out:$bin\HASAGI.exe" "/reference:$fx\WPF\PresentationFramework.dll" /reference:System.Windows.Forms.dll "/resource:$gui\MainWindow.xaml,window.xaml" "/resource:$gui\assets\hasagi-yasuo-ink.png,ink.png" "/resource:$gui\assets\hasagi-brush-wordmark.png,wordmark.png" "$shared\Language.cs" "$shared\Analysis.cs" "$shared\Report.cs" "$gui\Hasagi.cs"
 if ($LASTEXITCODE) { throw 'GUI build failed.' }
-& "$fx\csc.exe" @common /target:exe "/out:$bin\HASAGI-tui.exe" /reference:System.Windows.Forms.dll "/resource:$tui\design\Idle.ans,design.ans" "$tui\Program.cs" "$tui\Screen.cs" "$tui\FolderPicker.cs" "$shared\Analysis.cs" "$shared\Report.cs" "$shared\BatchJob.cs"
+& "$fx\csc.exe" @common /target:exe "/out:$bin\HASAGI-tui.exe" /reference:System.Windows.Forms.dll "/resource:$tui\design\Idle.ans,design.ans" "$tui\Program.cs" "$tui\Screen.cs" "$tui\FolderPicker.cs" "$shared\Language.cs" "$shared\Analysis.cs" "$shared\Report.cs" "$shared\BatchJob.cs"
 if ($LASTEXITCODE) { throw 'TUI build failed.' }
-& "$fx\csc.exe" @common /target:exe "/out:$bin\HASAGI-cli.exe" "$PSScriptRoot\cli\Program.cs" "$shared\Analysis.cs" "$shared\Report.cs" "$shared\BatchJob.cs"
+& "$fx\csc.exe" @common /target:exe "/out:$bin\HASAGI-cli.exe" "$PSScriptRoot\cli\Program.cs" "$shared\Language.cs" "$shared\Analysis.cs" "$shared\Report.cs" "$shared\BatchJob.cs"
 if ($LASTEXITCODE) { throw 'CLI build failed.' }
 
 Copy-Item -LiteralPath "$models/layers_fp32.onnx", "$models/discernibility_fp32.onnx" -Destination "$bin\models"

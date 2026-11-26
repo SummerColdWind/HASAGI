@@ -5,13 +5,14 @@ using System.Threading;
 
 internal sealed class Program
 {
-    private const string Help = @"Usage: HASAGI-cli.exe INPUT_FOLDER [-o OUTPUT_FOLDER]
+    private const string Help = @"Usage: HASAGI-cli.exe INPUT_FOLDER [-o OUTPUT_FOLDER] [--lang zh-CN|zh-TW|en]
 
 Recursively analyze single-frame 384 x 384 PNG, BMP, JPEG and TIFF images
 with both CPU ONNX models. Write HASAGI_results.csv and HASAGI_results.xlsx
 to the input folder by default. Existing reports are preserved.
 
   -o, --output-dir DIR    Destination directory (created if needed)
+      --lang CODE         Select and remember the Excel report language
   -h, --help              Print this help
 
 stdout: absolute CSV and XLSX paths, one per line. Progress goes to stderr.
@@ -21,7 +22,7 @@ Exit codes: 0 complete, 1 run failed, 2 invalid arguments, 3 image errors,
     private static int UsageError(string message)
     {
         Console.Error.WriteLine(message);
-        Console.Error.WriteLine("Usage: HASAGI-cli.exe INPUT_FOLDER [-o OUTPUT_FOLDER]");
+        Console.Error.WriteLine("Usage: HASAGI-cli.exe INPUT_FOLDER [-o OUTPUT_FOLDER] [--lang zh-CN|zh-TW|en]");
         return 2;
     }
 
@@ -33,6 +34,7 @@ Exit codes: 0 complete, 1 run failed, 2 invalid arguments, 3 image errors,
             Console.WriteLine(Help);
             return 0;
         }
+        int language = -1;
         string input = null, output = null;
         for (int i = 0; i < args.Length; i++) {
             string arg = args[i];
@@ -40,6 +42,9 @@ Exit codes: 0 complete, 1 run failed, 2 invalid arguments, 3 image errors,
                 if (output != null || ++i == args.Length || args[i].StartsWith("-") || string.IsNullOrWhiteSpace(args[i]))
                     return UsageError("Expected one output folder after " + arg + ".");
                 output = args[i];
+            } else if (arg == "--lang") {
+                if (language >= 0 || ++i == args.Length || (language = Array.FindIndex(AppLanguage.Codes, code => string.Equals(code,args[i],StringComparison.OrdinalIgnoreCase))) < 0)
+                    return UsageError("Expected --lang zh-CN, zh-TW or en.");
             } else if (arg.StartsWith("-") || input != null || string.IsNullOrWhiteSpace(arg)) {
                 return UsageError("Unexpected argument: " + arg);
             } else input = arg;
@@ -50,9 +55,10 @@ Exit codes: 0 complete, 1 run failed, 2 invalid arguments, 3 image errors,
             Console.CancelKeyPress += stop;
             try {
                 if (!Directory.Exists(input)) return UsageError("Input folder does not exist: " + input);
+                if (language >= 0) AppLanguage.Save(language); else language = AppLanguage.Load();
                 var job = new BatchJob(n => Console.Error.WriteLine("Found {0} images.", n),
                     (n,total,errors) => Console.Error.WriteLine("Processed {0}/{1} ({2} errors)", n,total,errors));
-                int code = job.Run(Path.GetFullPath(input), Path.GetFullPath(output ?? input), cancellation.Token);
+                int code = job.Run(Path.GetFullPath(input), Path.GetFullPath(output ?? input), cancellation.Token, language);
                 if (job.Saved != null) {
                     Console.WriteLine(job.Saved + ".csv");
                     Console.WriteLine(job.Saved + ".xlsx");

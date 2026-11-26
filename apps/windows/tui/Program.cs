@@ -17,7 +17,7 @@ internal sealed class Program
     private const string DefaultName="HASAGI_results";
     private string reportName=DefaultName;
     private Focus focus=Focus.Input;
-    private int language, languageChoice=-1, scroll;
+    private int language=AppLanguage.Load(), languageChoice=-1, scroll;
     private bool expanded,quit,exitAfterSave,confirmExit,lastProgress;
     private FolderPicker picker;
     private CancellationTokenSource stop;
@@ -64,13 +64,14 @@ internal sealed class Program
         stop=new CancellationTokenSource();
         var token=stop.Token;
         Log(()=>T("正在扫描图像…","正在掃描影像…","Scanning images…"));
+        int reportLanguage=language;
         worker=Task.Run(()=> {
             var job=new BatchJob(
                 n=>updates.Enqueue(()=>Log(()=>T("找到 "+n+" 张图像。","找到 "+n+" 張影像。","Found "+n+" images."))),
                 (n,total,errors)=>updates.Enqueue(()=>Log(()=>T("已处理 ","已處理 ","Processed ")+n+" / "+total+
                     T("，失败 ","，失敗 ","; errors ")+errors,true)));
             try {
-                int code=job.Run(src,dest,token,name);
+                int code=job.Run(src,dest,token,reportLanguage,name);
                 updates.Enqueue(()=> {
                     if(job.Saved!=null) {
                         saved=job.Saved;
@@ -133,7 +134,7 @@ internal sealed class Program
                 case ConsoleKey.Escape: case ConsoleKey.F4: languageChoice=-1;break;
                 case ConsoleKey.UpArrow: languageChoice=(languageChoice+2)%3;break;
                 case ConsoleKey.DownArrow: case ConsoleKey.Tab: languageChoice=(languageChoice+1)%3;break;
-                case ConsoleKey.Enter: language=languageChoice;languageChoice=-1;break;
+                case ConsoleKey.Enter: language=languageChoice;AppLanguage.Save(language);languageChoice=-1;break;
             }
             return;
         }

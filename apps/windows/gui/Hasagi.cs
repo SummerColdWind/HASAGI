@@ -101,7 +101,8 @@ internal sealed class Hasagi
         toggle.Expanded += delegate { RenderLog(); };
         toggle.Collapsed += delegate { RenderLog(); };
         Record("ready");
-        languages.SelectedIndex = 0;
+        languages.SelectedIndex = AppLanguage.Load();
+        languages.SelectionChanged += delegate { if (languages.SelectedIndex >= 0) AppLanguage.Save(languages.SelectedIndex); };
     }
 
     private T C<T>(string name) where T : FrameworkElement { return (T)Window.FindName(name); }
@@ -236,7 +237,7 @@ internal sealed class Hasagi
         processed(total,failed);
     }
 
-    private void RunBatch(string input,string stem,CancellationToken token)
+    private void RunBatch(string input,string stem,CancellationToken token,int reportLanguage)
     {
         string prefix=Path.GetFullPath(input).TrimEnd(Path.DirectorySeparatorChar)+Path.DirectorySeparatorChar;
         var files=Directory.EnumerateFiles(input,"*",SearchOption.AllDirectories)
@@ -250,7 +251,7 @@ internal sealed class Hasagi
         using(var layers=new CpuModel("layers_fp32.onnx"))
         using(var grades=new CpuModel("discernibility_fp32.onnx")) {
             var rows=AnalyzeFiles(files,prefix,layers,grades,token,(n,e)=>{processed=n;failed=e;});
-            final=Report.SavePair(stem,rows,()=>processed<files.Length);
+            final=Report.SavePair(stem,rows,()=>processed<files.Length,reportLanguage);
         }
         if(failed>0) Notify("failed",failed);
         Notify(processed<files.Length?"partial":"done",final+".csv / .xlsx");
@@ -266,7 +267,8 @@ internal sealed class Hasagi
         C<Button>("Analyze").Content=T("stop");
         Record("scanning");
         try {
-            await Task.Run(()=>RunBatch(folder,outputStem,cancellation.Token));
+            int reportLanguage = language;
+            await Task.Run(()=>RunBatch(folder,outputStem,cancellation.Token,reportLanguage));
         } catch (OperationCanceledException) { Record("stopped"); }
         catch (Exception ex) { Record("error", ex.Message); }
         finally {
